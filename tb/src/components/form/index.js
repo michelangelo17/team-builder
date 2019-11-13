@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form } from 'semantic-ui-react'
 
 const options = [
@@ -8,19 +8,31 @@ const options = [
 ]
 
 const FormComponent = props => {
-  const setTeamMember = props.setTeamMember
-  const teamMember = props.teamMember
   const teamMemberArray = props.teamMemberArray
   const setTeamMemberArray = props.setTeamMemberArray
-
-  const handleSubmit = event => {
-    event.preventDefault()
-    setTeamMemberArray([...teamMemberArray, teamMember])
+  const memberToEdit = props.memberToEdit
+  const editMember = props.editMember
+  const [teamMember, setTeamMember] = useState({
+    fname: '',
+    lname: '',
+    email: '',
+    role: '',
+    id: '',
+  })
+  const handleSubmit = e => {
+    e.preventDefault()
+    Object.keys(memberToEdit).length
+      ? editMember(teamMember)
+      : setTeamMemberArray([
+          ...teamMemberArray,
+          { ...teamMember, id: teamMemberArray.length },
+        ])
     setTeamMember({
       fname: '',
       lname: '',
       email: '',
       role: '',
+      id: '',
     })
   }
 
@@ -38,8 +50,10 @@ const FormComponent = props => {
             [e.target.name]: e.target.value,
           }
     )
+  useEffect(() => {
+    setTeamMember(memberToEdit)
+  }, [memberToEdit])
 
-  console.log(teamMember)
   return (
     <Form onSubmit={event => handleSubmit(event)}>
       <Form.Group widths='equal'>
@@ -78,7 +92,7 @@ const FormComponent = props => {
           placeholder='Email Address'
         />
       </Form.Group>
-      <Form.Button>Submit</Form.Button>
+      <Form.Button primary>Submit</Form.Button>
     </Form>
   )
 }

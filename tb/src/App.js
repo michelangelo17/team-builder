@@ -5,26 +5,30 @@ import TeamMembers from './components/teamMembers'
 
 function App() {
   const [teamMemberArray, setTeamMemberArray] = useState([])
-  console.log(teamMemberArray)
-  const [teamMember, setTeamMember] = useState({
-    fname: '',
-    lname: '',
-    email: '',
-    role: '',
-  })
+  const [memberToEdit, setMemberToEdit] = useState({})
 
+  const editMember = member => {
+    const newTeamArray = teamMemberArray.filter(
+      change => change.id !== member.id
+    )
+    setTeamMemberArray([...newTeamArray, member])
+    setMemberToEdit({})
+  }
   return (
     <Container className='app'>
       <Segment padded='very'>
         <Header as='h1'>Developer Team</Header>
         <Form
-          teamMember={teamMember}
-          setTeamMember={setTeamMember}
           teamMemberArray={teamMemberArray}
           setTeamMemberArray={setTeamMemberArray}
+          memberToEdit={memberToEdit}
+          editMember={editMember}
         />
         <Container className='theTeam'>
-          <TeamMembers teamMemberArray={teamMemberArray} />
+          <TeamMembers
+            teamMemberArray={teamMemberArray}
+            setMemberToEdit={setMemberToEdit}
+          />
         </Container>
       </Segment>
     </Container>
