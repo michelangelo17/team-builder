@@ -3,9 +3,10 @@ import { Card, Button } from 'semantic-ui-react'
 
 const TeamMembers = props => {
   const setMemberToEdit = props.setMemberToEdit
+  const teamMemberArray = props.teamMemberArray
   return (
     <Card.Group>
-      {props.teamMemberArray.map((member, index) => (
+      {teamMemberArray.map((member, index) => (
         <Card key={index}>
           <Card.Content>
             <Button floated='right' onClick={e => setMemberToEdit(member)}>
