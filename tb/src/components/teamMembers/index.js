@@ -9,7 +9,7 @@ const TeamMembers = props => {
       {teamMemberArray.map((member, index) => (
         <Card key={index}>
           <Card.Content>
-            <Button floated='right' onClick={e => setMemberToEdit(member)}>
+            <Button floated='right' onClick={() => setMemberToEdit(member)}>
               Edit
             </Button>
             <Card.Header>{`${member.fname} ${member.lname}`}</Card.Header>

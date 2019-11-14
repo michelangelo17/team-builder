@@ -8,10 +8,10 @@ function App() {
   const [memberToEdit, setMemberToEdit] = useState({})
 
   const editMember = member => {
-    const newTeamArray = teamMemberArray.filter(
-      change => change.id !== member.id
+    const newTeamArray = teamMemberArray.map(change =>
+      change.id === member.id ? (change = member) : change
     )
-    setTeamMemberArray([...newTeamArray, member])
+    setTeamMemberArray(newTeamArray)
     setMemberToEdit({})
   }
   return (
